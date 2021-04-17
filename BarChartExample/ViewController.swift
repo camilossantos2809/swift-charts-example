@@ -7,24 +7,21 @@
 import Charts //  https://github.com/danielgindi/Charts
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, ChartViewDelegate {
+    
+    var barChart = BarChartView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        createChart()
+        barChart.delegate = self
     }
     
-    private func createChart() {
-        let barChart = BarChartView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.width))
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        barChart.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.width)
+        barChart.center = view.center
+        view.addSubview(barChart)
         
-        //        Axis
-        let xAxis = barChart.xAxis
-        let rightAxis = barChart.rightAxis
-        
-        //        Legend
-        let legend = barChart.legend
-        
-        //        Data
         var entries = [BarChartDataEntry]()
         var entries2 = [BarChartDataEntry]()
         for x in 0..<10 {
@@ -37,9 +34,6 @@ class ViewController: UIViewController {
         set2.colors = [NSUIColor(red: 0/255.0, green: 84/255.0, blue: 203/255.0,alpha: 0.9)]
         let data = BarChartData(dataSets: [set,set2])
         barChart.data = data
-        
-        view.addSubview(barChart)
-        barChart.center = view.center
     }
     
 }
