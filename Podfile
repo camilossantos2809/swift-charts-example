@@ -7,5 +7,6 @@ target 'BarChartExample' do
 
   # Pods for BarChartExample
   pod 'Charts'
+  pod 'TinyConstraints'
  
 end
